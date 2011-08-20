@@ -1,0 +1,13 @@
+{application, liveconfig,
+ [
+  {description, "liveconfig - Run a function when directory contents change"},
+  {vsn, "0.7"},
+  {modules, []},
+  {registered, [liveconfig_sup]},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, {liveconfig_app, []}},
+  {env, []}
+ ]}.
