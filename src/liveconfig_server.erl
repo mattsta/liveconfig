@@ -61,7 +61,7 @@ handle_info(timeout, #state{directory = Directory,
                             previous_files = PreviousFiles,
                             interval = Interval} = State) ->
   CurrentFilenames = filelib:wildcard(Wildcard, Directory),
-  FullNames = [string:join([Directory, Name], "/") || Name <- CurrentFilenames],
+  FullNames = [filename:join([Directory, Name]) || Name <- CurrentFilenames],
   case find_changes(PreviousFiles, FullNames) of
     no_updates -> {noreply, State, Interval};
     {ChangedFilenames, NewFilenames, RemovedFilenames, NewPreviousFiles} ->
