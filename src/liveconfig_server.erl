@@ -40,10 +40,12 @@ start_link(Directory, Wildcard, Fun, Interval) ->
 %%%--------------------------------------------------------------------
 
 init([Directory, Wildcard, Fun, Interval]) ->
-  {ok, #state{directory = Directory,
-              wildcard = Wildcard,
-              process_fun = Fun,
-              interval = Interval}, Interval}.
+  InitialState = #state{directory = Directory,
+                        wildcard = Wildcard,
+                        process_fun = Fun,
+                        interval = Interval},
+  {noreply, NewState, Interval} = handle_info(timeout, InitialState),
+  {ok, NewState, Interval}.
 
 handle_call(_, _From, #state{interval = Interval} = State) ->
   {reply, not_implemented, State, Interval}.
